@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ScholarPath – Scholarship and part-time job finder</title>
+<style>
+:root{--bg:#F4F7FA;--card:#fff;--ink:#1E293B;--muted:#64748B;--navy:#0B3954;--accent:#EA580C;--line:#DDE5EC;--ok:#0F7B4B;--okbg:#E3F4EB;--no:#B42318;--nobg:#FDE7E4;--wait:#92600A;--waitbg:#FDF1D8;--tint:#E8F0F6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0C1822;--card:#13283A;--ink:#E6EDF3;--muted:#9DB0C0;--navy:#8CC4E8;--line:#24425A;--okbg:#10382A;--ok:#5FD39A;--nobg:#45201C;--no:#FF9C90;--waitbg:#43330F;--wait:#F2C66D;--tint:#17344A}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0C1822;--card:#13283A;--ink:#E6EDF3;--muted:#9DB0C0;--navy:#8CC4E8;--line:#24425A;--okbg:#10382A;--ok:#5FD39A;--nobg:#45201C;--no:#FF9C90;--waitbg:#43330F;--wait:#F2C66D;--tint:#17344A}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI","Helvetica Neue",Arial,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 20px 0}
+:root:not([data-theme="light"]) header{}
+.top{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-size:22px;font-weight:700;letter-spacing:.2px}
+.logo i{font-style:normal;color:#FDBA74}
+.proto{font-size:13px;background:rgba(255,255,255,.14);padding:2px 10px;border-radius:99px}
+nav{max-width:980px;margin:10px auto 0;display:flex;gap:4px;overflow-x:auto}
+nav button{background:none;border:0;color:#CFE3F1;font:inherit;font-size:15px;padding:10px 14px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button[aria-selected="true"]{color:#fff;border-color:#FDBA74;font-weight:600}
+nav button:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{max-width:980px;margin:0 auto;padding:20px}
+h1{font-size:24px;margin:0 0 4px;color:var(--navy)}
+.sub{color:var(--muted);margin:0 0 18px}
+.alert{background:var(--waitbg);color:var(--wait);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:15px}
+.grid{display:grid;gap:16px}
+.two{grid-template-columns:1.3fr 1fr}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+label:first-child{margin-top:0}
+input[type=text],input[type=number],select{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:6px 13px;font:inherit;font-size:14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0C1822}
+.hint{color:var(--muted);font-size:14px;margin:6px 0 0}
+.meter{height:10px;background:var(--tint);border-radius:99px;overflow:hidden;margin:8px 0}
+.meter b{display:block;height:100%;background:var(--accent);border-radius:99px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.filters select{width:auto}
+.item{margin-bottom:14px}
+.row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.item h3{margin:0;font-size:18px;color:var(--navy)}
+.meta{color:var(--muted);font-size:14px;margin-top:2px}
+.badge{font-size:13px;font-weight:600;padding:3px 11px;border-radius:99px;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-no{background:var(--nobg);color:var(--no)}.b-wait{background:var(--waitbg);color:var(--wait)}
+.facts{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0;font-size:15px}
+.facts span b{color:var(--navy)}
+details{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+summary{cursor:pointer;font-weight:600;color:var(--navy)}
+.chk{list-style:none;margin:10px 0 0;padding:0}
+.chk li{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.chk .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700}
+.chk .ok{background:var(--okbg);color:var(--ok)}.chk .no{background:var(--nobg);color:var(--no)}.chk .wait{background:var(--waitbg);color:var(--wait)}
+.chk small{display:block;color:var(--muted)}
+.docs h4{margin:14px 0 4px;font-size:15px}
+.docs label{display:flex;gap:8px;align-items:center;font-weight:400;margin:4px 0;font-size:15px}
+.foot{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.foot select{width:auto;font-size:14px;padding:6px 8px}
+.score{font-size:26px;font-weight:700;color:var(--accent);line-height:1}
+.skill{display:inline-block;font-size:13px;padding:2px 9px;border-radius:99px;background:var(--tint);margin:2px 4px 2px 0}
+.skill.on{background:var(--okbg);color:var(--ok);font-weight:600}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}
+.tbtn{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.meter b{transition:width .4s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><div class="logo">Scholar<i>Path</i></div><span class="proto">Prototype with sample data</span></div>
+  <nav role="tablist" id="nav"></nav>
+</header>
+<main id="app"></main>
+
+<script>
+var TABS=[["profile","My profile"],["sch","Scholarships"],["jobs","Part-time jobs"],["track","My applications"]];
+var SKILLS=["HTML/CSS","JavaScript","Python","Excel","Writing","Communication","Design","Teaching"];
+var INTERESTS=["Technology","Education","Media","Finance"];
+var COURSES=["BSc IT","Engineering","Diploma","BCom","BA","BSc (other)"];
+var CATS=["General","OBC","SC/ST","EWS"];
+var INCOMES=[[200000,"Up to ₹2 lakh"],[400000,"₹2–4 lakh"],[800000,"₹4–8 lakh"],[1200000,"Above ₹8 lakh"]];
+var SCH=[
+ {id:"s1",name:"Merit Excellence Scholarship",type:"Institution",amt:25000,days:12,marks:75,docs:["Marksheet","Identity proof","Bonafide certificate"]},
+ {id:"s2",name:"State Higher-Education Aid",type:"Government",amt:30000,days:25,marks:60,inc:400000,docs:["Income certificate","Marksheet","Identity proof"]},
+ {id:"s3",name:"Inclusive Education Grant",type:"Government",amt:40000,days:40,inc:800000,cats:["OBC","SC/ST","EWS"],docs:["Category certificate","Income certificate","Marksheet"]},
+ {id:"s4",name:"Tech Talent Scholarship",type:"Non-government",amt:50000,days:60,marks:70,courses:["BSc IT","Engineering","Diploma"],docs:["Marksheet","Statement of purpose","Identity proof"]},
+ {id:"s5",name:"Need-Based Support Fund",type:"Institution",amt:15000,days:8,inc:200000,docs:["Income certificate","Bank passbook copy","Bonafide certificate"]}
+];
+var JOBS=[
+ {id:"j1",name:"Junior Web Developer",org:"Local startup",pay:8000,hrs:12,mode:"Remote",skills:["HTML/CSS","JavaScript"],interest:"Technology"},
+ {id:"j2",name:"Content Writer",org:"Education blog",pay:5000,hrs:8,mode:"Remote",skills:["Writing","Communication"],interest:"Media"},
+ {id:"j3",name:"Data Entry Assistant",org:"Campus office",pay:6000,hrs:10,mode:"On campus",skills:["Excel"],interest:"Finance"},
+ {id:"j4",name:"Peer Tutor",org:"Study centre",pay:7000,hrs:10,mode:"On campus",skills:["Teaching","Communication"],interest:"Education"},
+ {id:"j5",name:"Social Media Helper",org:"Local shop",pay:4500,hrs:6,mode:"Remote",skills:["Design","Writing"],interest:"Media"},
+ {id:"j6",name:"Python Data Intern",org:"Research lab",pay:9000,hrs:15,mode:"Remote",skills:["Python","Excel"],interest:"Technology"}
+];
+var S={tab:"profile",p:{name:"",course:"",marks:"",income:"",cat:"",skills:[],interests:[],hours:10},docs:{},track:{},start:Date.now(),fType:"All",fOnly:false,open:{}};
+try{var sv=JSON.parse(localStorage.getItem("scholarpath")||"null");if(sv){S.p=sv.p||S.p;S.docs=sv.docs||{};S.track=sv.track||{};S.start=sv.start||S.start}}catch(e){}
+function save(){try{localStorage.setItem("scholarpath",JSON.stringify({p:S.p,docs:S.docs,track:S.track,start:S.start}))}catch(e){}}
+function $(h){return h}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function inr(n){return "₹"+n.toLocaleString("en-IN")}
+function left(d){return d-Math.floor((Date.now()-S.start)/864e5)}
+function dstr(d){return new Date(S.start+d*864e5).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})}
+function checks(s){var p=S.p,r=[];
+ function add(need,ok,label,have,miss){r.push(need?(ok?["ok",label,have]:["no",label,have]):["wait",label,miss])}
+ if(s.marks!=null)add(p.marks!=="",+p.marks>=s.marks,"Marks of "+s.marks+"% or more",p.marks+"% entered","Add your marks in My profile");
+ if(s.inc!=null)add(p.income!=="",+p.income<=s.inc,"Family income up to ₹"+(s.inc/100000)+" lakh","Your range: "+(INCOMES.filter(function(i){return i[0]==p.income})[0]||[0,""])[1],"Choose your income range in My profile");
+ if(s.cats)add(p.cat!=="",s.cats.indexOf(p.cat)>-1,"Category: "+s.cats.join(", "),"Your category: "+p.cat,"Choose your category in My profile");
+ if(s.courses)add(p.course!=="",s.courses.indexOf(p.course)>-1,"Course: "+s.courses.join(", "),"Your course: "+p.course,"Choose your course in My profile");
+ return r}
+function status(r){var no=r.some(function(x){return x[0]=="no"}),w=r.some(function(x){return x[0]=="wait"});return no?"no":w?"wait":"ok"}
+var LBL={ok:"Eligible",no:"Not eligible",wait:"Needs info"};
+function match(j){var p=S.p,m=j.skills.filter(function(k){return p.skills.indexOf(k)>-1});
+ var sc=60*(m.length/j.skills.length)+(p.interests.indexOf(j.interest)>-1?20:0)+(+p.hours>=j.hrs?20:0);return{score:Math.round(sc),matched:m}}
+function trackSel(id){var v=S.track[id]||"";return '<select data-track="'+id+'" aria-label="Application status"><option value="">Not tracked</option><option value="saved"'+(v=="saved"?" selected":"")+'>Saved</option><option value="applied"'+(v=="applied"?" selected":"")+'>Applied</option><option value="won"'+(v=="won"?" selected":"")+'>Accepted</option></select>'}
+
+function vProfile(){var p=S.p;
+ var f=[p.name,p.course,p.marks,p.income,p.cat,p.skills.length?1:"",p.interests.length?1:""],done=f.filter(function(x){return x!==""}).length,pct=Math.round(done/f.length*100);
+ return '<h1>Tell us about you</h1><p class="sub">ScholarPath uses these details to check eligibility and match jobs. They stay in this browser.</p><div class="grid two"><div class="card">'+
+ '<label for="name">Your name</label><input type="text" id="name" data-f="name" value="'+esc(p.name)+'">'+
+ '<label for="course">Course</label><select id="course" data-f="course"><option value="">Select course</option>'+COURSES.map(function(c){return '<option'+(p.course==c?" selected":"")+'>'+c+'</option>'}).join("")+'</select>'+
+ '<label for="marks">Latest marks (%)</label><input type="number" id="marks" min="0" max="100" data-f="marks" value="'+p.marks+'">'+
+ '<label for="income">Family income per year</label><select id="income" data-f="income"><option value="">Select range</option>'+INCOMES.map(function(i){return '<option value="'+i[0]+'"'+(p.income==i[0]?" selected":"")+'>'+i[1]+'</option>'}).join("")+'</select>'+
+ '<label for="cat">Category</label><select id="cat" data-f="cat"><option value="">Select category</option>'+CATS.map(function(c){return '<option'+(p.cat==c?" selected":"")+'>'+c+'</option>'}).join("")+'</select>'+
+ '<label>Your skills</label><div class="chips">'+SKILLS.map(function(k){return '<button type="button" class="chip" data-chip="skills" data-v="'+k+'" aria-pressed="'+(p.skills.indexOf(k)>-1)+'">'+k+'</button>'}).join("")+'</div>'+
+ '<label>Interests</label><div class="chips">'+INTERESTS.map(function(k){return '<button type="button" class="chip" data-chip="interests" data-v="'+k+'" aria-pressed="'+(p.interests.indexOf(k)>-1)+'">'+k+'</button>'}).join("")+'</div>'+
+ '<label for="hours">Hours you can work per week: <span id="hv">'+p.hours+'</span></label><input type="range" id="hours" min="2" max="30" value="'+p.hours+'" data-f="hours" style="width:100%"></div>'+
+ '<div class="card"><h3 style="margin:0;color:var(--navy)">Profile complete: '+pct+'%</h3><div class="meter"><b style="width:'+pct+'%"></b></div><p class="hint">A fuller profile gives more accurate eligibility checks and job matches.</p>'+
+ '<div style="margin-top:16px"><button class="tbtn" data-go="sch">See my scholarships</button></div></div></div>'}
+
+function vSch(){var rows=SCH.filter(function(s){return S.fType=="All"||s.type==S.fType}).map(function(s){return{s:s,r:checks(s)}});
+ rows=rows.filter(function(x){return !S.fOnly||status(x.r)=="ok"}).sort(function(a,b){return a.s.days-b.s.days});
+ var h='<h1>Scholarships and financial aid</h1><p class="sub">Open “Eligibility checklist” on any card to see what you meet, what is pending and which documents you need.</p>'+
+ '<div class="filters"><label for="ft" style="margin:0">Type</label><select id="ft" data-ft><option>All</option><option'+(S.fType=="Government"?" selected":"")+'>Government</option><option'+(S.fType=="Non-government"?" selected":"")+'>Non-government</option><option'+(S.fType=="Institution"?" selected":"")+'>Institution</option></select>'+
+ '<label style="margin:0;font-weight:400"><input type="checkbox" data-fo'+(S.fOnly?" checked":"")+'> Show eligible only</label></div>';
+ if(!rows.length)return h+'<div class="empty card">No scholarships match these filters. Try “All” or add more details to your profile.</div>';
+ return h+rows.map(function(x){var s=x.s,r=x.r,st=status(r),d=left(s.days);
+  var dc=s.docs.filter(function(k){return S.docs[s.id+":"+k]}).length;
+  return '<article class="card item"><div class="row"><div><h3>'+s.name+'</h3><div class="meta">'+s.type+'</div></div><span class="badge b-'+st+'">'+LBL[st]+'</span></div>'+
+  '<div class="facts"><span>Amount <b>'+inr(s.amt)+'/year</b></span><span>Deadline <b>'+dstr(s.days)+'</b> ('+(d>0?d+" days left":"closed")+')</span><span>Documents ready <b>'+dc+' of '+s.docs.length+'</b></span></div>'+
+  '<details data-open="'+s.id+'"'+(S.open[s.id]?" open":"")+'><summary>Eligibility checklist</summary><ul class="chk">'+
+  r.map(function(c){return '<li><span class="ic '+c[0]+'" aria-hidden="true">'+(c[0]=="ok"?"✓":c[0]=="no"?"✗":"?")+'</span><span>'+c[1]+'<small>'+c[2]+'</small></span></li>'}).join("")+(r.length?"":'<li>No special criteria. Open to all students.</li>')+'</ul>'+
+  '<div class="docs"><h4>Documents needed</h4>'+s.docs.map(function(k){return '<label><input type="checkbox" data-doc="'+s.id+":"+k+'"'+(S.docs[s.id+":"+k]?" checked":"")+'> '+k+'</label>'}).join("")+'</div></details>'+
+  '<div class="foot"><span class="meta">Track:</span>'+trackSel(s.id)+'</div></article>'}).join("")}
+
+function vJobs(){var rows=JOBS.map(function(j){return{j:j,m:match(j)}}).sort(function(a,b){return b.m.score-a.m.score});
+ var h='<h1>Part-time jobs for you</h1><p class="sub">Ranked by how well each job fits your skills, interests and weekly hours.'+(S.p.skills.length?'':' Add skills in My profile to improve the ranking.')+'</p>';
+ return h+rows.map(function(x){var j=x.j,m=x.m;
+  return '<article class="card item"><div class="row"><div><h3>'+j.name+'</h3><div class="meta">'+j.org+' · '+j.mode+'</div></div><div style="text-align:right"><div class="score">'+m.score+'%</div><div class="meta">match</div></div></div>'+
+  '<div class="facts"><span>Pay <b>'+inr(j.pay)+'/month</b></span><span>Time needed <b>'+j.hrs+' hrs/week</b>'+(+S.p.hours>=j.hrs?"":" (more than you can offer)")+'</span></div>'+
+  '<div>'+j.skills.map(function(k){return '<span class="skill'+(m.matched.indexOf(k)>-1?" on":"")+'">'+k+(m.matched.indexOf(k)>-1?" ✓":"")+'</span>'}).join("")+'</div>'+
+  '<div class="foot"><span class="meta">Track:</span>'+trackSel(j.id)+'</div></article>'}).join("")}
+
+function vTrack(){var all=SCH.map(function(s){return{id:s.id,name:s.name,kind:"Scholarship",days:s.days}}).concat(JOBS.map(function(j){return{id:j.id,name:j.name,kind:"Job",days:null}}));
+ var T=all.filter(function(x){return S.track[x.id]});
+ var G=[["saved","Saved"],["applied","Applied"],["won","Accepted"]];
+ var h='<h1>My applications</h1><p class="sub">Everything you saved or applied for, in one place. Change a status from the Scholarships or Part-time jobs pages.</p>';
+ if(!T.length)return h+'<div class="empty card">Nothing tracked yet. Open Scholarships or Part-time jobs and choose “Saved” on anything you like.</div>';
+ return h+G.map(function(g){var l=T.filter(function(x){return S.track[x.id]==g[0]});
+  return '<div class="card item"><h3>'+g[1]+' ('+l.length+')</h3>'+(l.length?l.map(function(x){return '<div class="row" style="padding:8px 0;border-top:1px solid var(--line)"><span>'+x.name+' <span class="meta">'+x.kind+(x.days!=null?" · deadline "+dstr(x.days):"")+'</span></span>'+trackSel(x.id)+'</div>'}).join(""):'<p class="hint">None yet.</p>')+'</div>'}).join("")}
+
+function alertBar(){var n=SCH.filter(function(s){var d=left(s.days);return d>0&&d<=14&&S.track[s.id]!="applied"&&S.track[s.id]!="won"&&status(checks(s))!="no"});
+ if(!n.length)return "";return '<div class="alert" role="status"><b>Closing soon:</b> '+n.map(function(s){return s.name+" ("+left(s.days)+" days left)"}).join(", ")+'</div>'}
+
+function render(){
+ document.getElementById("nav").innerHTML=TABS.map(function(t){return '<button role="tab" data-tab="'+t[0]+'" aria-selected="'+(S.tab==t[0])+'">'+t[1]+'</button>'}).join("");
+ var v={profile:vProfile,sch:vSch,jobs:vJobs,track:vTrack}[S.tab]();
+ document.getElementById("app").innerHTML=(S.tab=="profile"?"":alertBar())+v;
+}
+document.addEventListener("click",function(e){var t=e.target.closest("[data-tab],[data-go],[data-chip]");if(!t)return;
+ if(t.dataset.tab||t.dataset.go){S.tab=t.dataset.tab||t.dataset.go;render();window.scrollTo(0,0)}
+ else{var k=t.dataset.chip,a=S.p[k],i=a.indexOf(t.dataset.v);if(i>-1)a.splice(i,1);else a.push(t.dataset.v);save();render()}});
+document.addEventListener("input",function(e){var t=e.target;if(t.dataset.f){S.p[t.dataset.f]=t.type=="range"?+t.value:t.value;save();if(t.type=="range")document.getElementById("hv").textContent=t.value}});
+document.addEventListener("change",function(e){var t=e.target;
+ if(t.dataset.f&&t.tagName=="SELECT"){S.p[t.dataset.f]=t.value;save();render()}
+ else if(t.dataset.f&&t.id=="marks"){render()}
+ else if(t.dataset.track){S.track[t.dataset.track]=t.value;if(!t.value)delete S.track[t.dataset.track];save();render()}
+ else if(t.dataset.doc){S.docs[t.dataset.doc]=t.checked;save();var d=t.closest("details");if(d)S.open[d.dataset.open]=true;render()}
+ else if(t.hasAttribute("data-ft")){S.fType=t.value;render()}
+ else if(t.hasAttribute("data-fo")){S.fOnly=t.checked;render()}});
+document.addEventListener("toggle",function(e){var d=e.target;if(d.dataset&&d.dataset.open)S.open[d.dataset.open]=d.open},true);
+render();
+</script>
+</body>
+</html>
